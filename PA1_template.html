@@ -155,15 +155,19 @@ mean.per.day.filled &lt;- mean(total.per.day$total)
 median.per.day.filled &lt;- median(total.per.day$total)</code></pre>
 <p><strong>The mean (with missing values filled) is 9354.23</strong></p>
 <p><strong>The median (with missing values filled) is 10395</strong></p>
-<p>The mean and median (with missing values filled) do not differ from the values calculated in the first part. The total daily number of steps is now filled (for days where data was missing), with estimate data that keep the same mean and median. An important aspect however, is that we are assuming the mean is the same for weekdays and weekends, an hypothesis we have not yet verified.</p>
+<p>The mean and median (with missing values filled) do not differ from the values calculated in the first part.</p>
+<p>The total daily number of steps is now filled (where data were missing), with estimate data that keep the same mean and median.</p>
+<p>An important aspect however, is that we are assuming the mean is the same for weekdays and weekends, an hypothesis we have not yet verified.</p>
 </div>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>
-<pre class="r"><code>#1. Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
-# remove NA's from the data
+<pre class="r"><code>#1. Create a new factor variable in the dataset with two levels – “weekday” and “weekend” 
+#   indicating whether a given date is a weekday or weekend day.
+
+# Remove NA's from the data
 activity.clean &lt;- activity[ ! is.na(activity$steps), ]
 
-# add new column 'daytype' (weekday or weekend)
+# Add new column 'daytype' (weekday or weekend)
 activity.clean$daytype &lt;- as.factor(weekdays(as.Date(activity.clean$date)) %in% c(&quot;Saturday&quot;, &quot;Sunday&quot;))
 levels(activity.clean$daytype) &lt;- c(&quot;weekday&quot;, &quot;weekend&quot;)
 

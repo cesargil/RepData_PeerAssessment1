@@ -135,17 +135,22 @@ median.per.day.filled <- median(total.per.day$total)
 **The median (with missing values filled) is 10395**
 
 The mean and median (with missing values filled) do not differ from the values calculated in the first part.
-The total daily number of steps is now filled (for days where data was missing), with estimate data that keep the same mean and median. An important aspect however, is that we are assuming the mean is the same for weekdays and weekends, an hypothesis we have not yet verified.
+
+The total daily number of steps is now filled (where data were missing), with estimate data that keep the same mean and median.
+
+An important aspect however, is that we are assuming the mean is the same for weekdays and weekends, an hypothesis we have not yet verified.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
 
 ```r
-#1. Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
-# remove NA's from the data
+#1. Create a new factor variable in the dataset with two levels – “weekday” and “weekend” 
+#   indicating whether a given date is a weekday or weekend day.
+
+# Remove NA's from the data
 activity.clean <- activity[ ! is.na(activity$steps), ]
 
-# add new column 'daytype' (weekday or weekend)
+# Add new column 'daytype' (weekday or weekend)
 activity.clean$daytype <- as.factor(weekdays(as.Date(activity.clean$date)) %in% c("Saturday", "Sunday"))
 levels(activity.clean$daytype) <- c("weekday", "weekend")
 
