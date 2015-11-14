@@ -39,10 +39,8 @@ For this plot we will use the original data (without NA's removed), so we can al
 total.per.day <- activity %>% group_by(date) %>% summarise(total=sum(steps, na.rm=TRUE))
 
 # 2. Draw histogram
-b <- barplot(height=total.per.day$total, las=2, cex.axis=0.8, xaxt="n", 
-        ylab="Number of steps", main="Total of steps taken each day")
-bseq <- seq(1,length(b),by=2)
-axis(1, at=b[bseq], labels=total.per.day$date[bseq], las=2, cex.axis=0.7, adj=1)
+hist(total.per.day$total, main="Histogram of steps per day", 
+     xlab="Steps per day", breaks=10)
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-2-1.png) 
@@ -67,7 +65,7 @@ median.per.day <- median(total.per.day$total, na.rm=TRUE)
 # Calculate average of steps per interval of time
 average.per.interval <- activity %>% group_by(interval) %>% summarise(avg.steps=mean(steps, na.rm=TRUE))
 
-# 1. Draw plot of period x number of steps
+# 1. Draw plot of period vs. number of steps
 plot(x=average.per.interval$interval, y=average.per.interval$avg.steps, type="l", xaxt="n",
      xlab="Time of day", ylab="Average steps", main="Average number of steps x time of day")
 axis(1, at=seq(0,2300,by=100), labels=paste0(seq(0,23), ':00'), las=2, cex.axis=0.8)
@@ -103,23 +101,9 @@ activity.filled$steps[ind.na] <- inner_join(activity, average.per.interval, by="
 # Compute new total per day using filled data
 total.per.day.filled <- activity.filled %>% group_by(date) %>% summarise(total=sum(steps))
 
-# Column indicating which days have filled data
-total.per.day.filled$filled <- as.factor(is.na((activity %>% group_by(date) %>%
-    summarise(total=sum(steps)))$total))
-
-# Friendly names for the "filled" indicator
-levels(total.per.day.filled$filled) <- c("original data", "filled")
-
-# Make plot - filled days will be indicated with a different color
-palette(c("grey", "cyan"))
-b <- barplot(height=total.per.day.filled$total, las=2, cex.axis=0.8, xaxt="n", 
-        ylab="Number of steps", main="Total of steps taken each day\n(with missing values filled)",
-        col=total.per.day.filled$filled)
-legend("top", legend=levels(total.per.day.filled$filled), cex=0.6, lty=1, col=c("grey", "cyan"))
-
-# Labels on X axis at every 2 days
-bseq <- seq(1,length(b),by=2)
-axis(1, at=b[bseq], labels=total.per.day.filled$date[bseq], las=2, cex.axis=0.7, adj=1)
+# Draw histogram
+hist(total.per.day.filled$total, main="Histogram of steps per day\n(with missing values filled)", 
+     xlab="Steps per day", breaks=10)
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-6-1.png) 
