@@ -27,7 +27,7 @@ total.per.day <- activity %>% group_by(date) %>% summarise(total=sum(steps, na.r
 
 # 2. Draw histogram
 hist(total.per.day$total, main="Histogram of steps per day", 
-     xlab="Steps per day", breaks=10)
+     xlab="Steps per day", breaks=20, col="gray")
 
 # 3. Calculate mean steps per day - remove days without data
 mean.per.day <- mean(total.per.day$total, na.rm=TRUE)
@@ -78,7 +78,7 @@ total.per.day.filled <- activity.filled %>% group_by(date) %>% summarise(total=s
 
 # Draw histogram
 hist(total.per.day.filled$total, main="Histogram of steps per day\n(with missing values filled)", 
-     xlab="Steps per day", breaks=10)
+     xlab="Steps per day", breaks=20, col="gray")
 
 # Calculate new mean and median using filled data
 mean.per.day.filled <- mean(total.per.day$total)

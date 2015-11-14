@@ -40,7 +40,7 @@ total.per.day <- activity %>% group_by(date) %>% summarise(total=sum(steps, na.r
 
 # 2. Draw histogram
 hist(total.per.day$total, main="Histogram of steps per day", 
-     xlab="Steps per day", breaks=10)
+     xlab="Steps per day", breaks=20, col="gray")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-2-1.png) 
@@ -103,7 +103,7 @@ total.per.day.filled <- activity.filled %>% group_by(date) %>% summarise(total=s
 
 # Draw histogram
 hist(total.per.day.filled$total, main="Histogram of steps per day\n(with missing values filled)", 
-     xlab="Steps per day", breaks=10)
+     xlab="Steps per day", breaks=20, col="gray")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-6-1.png) 
